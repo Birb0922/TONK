@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class TankMovement : MonoBehaviour, IDamageable
 {
@@ -7,7 +8,7 @@ public class TankMovement : MonoBehaviour, IDamageable
     public float moveSpeed = 5f;
     public float rotationSpeed = 180f;
     public float firerate = 5f;
-    public float bulletspeed = 20f;
+    public float bulletspeed = 1f;
 
     public Rigidbody2D rb;
     public GameObject spinny;
@@ -24,9 +25,10 @@ public class TankMovement : MonoBehaviour, IDamageable
 
     void shoot()
     {
-        GameObject bullet = Instantiate(bulletfab, firingpoint.position, firingpoint.rotation);
+        GameObject bullet = Instantiate(bulletfab, firingpoint.position, spinny.transform.rotation);
         Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
-        brb.linearVelocity = firingpoint.right * bulletspeed;
+        brb.linearVelocity = direction.normalized * bulletspeed;
+        Debug.Log(direction);
     }
 
     public void OnHit(int damage)
@@ -58,6 +60,10 @@ public class TankMovement : MonoBehaviour, IDamageable
             rotateInput.x - transform.position.x,
             rotateInput.y - transform.position.y
         );
+
+        //firingpoint.LookAt(direction);
+
+
     }
 
     void FixedUpdate()
