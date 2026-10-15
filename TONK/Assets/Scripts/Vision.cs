@@ -1,84 +1,29 @@
 using UnityEngine;
 
-public class Vision : MonoBehaviour
+public class VisionSensor : MonoBehaviour
 {
     public float visionRange = 12f;
     public float visionAngle = 90f;
-    public LayerMask obstacleMask;
+    public int rayCount = 60;
+
+    public LayerMask visionMask;
+    public LineRenderer lineRenderer;
 
     public Transform visibleTarget;
 
-    private float checkTimer;
-
-    public LineRenderer lineRenderer;
-    public int rayCount = 60;
-
-    void Update()
+    void LateUpdate()
     {
-        checkTimer -= Time.deltaTime;
-
-        if (checkTimer <= 0)
-        {
-            checkTimer = 0.2f;
-            FindTarget();
-        }
+        ScanVision();
     }
 
-    void FindTarget()
+    void ScanVision()
     {
         visibleTarget = null;
+
+        Vector3 origin = transform.position;
         float closestDistance = visionRange;
 
-        GameObject[] tanks = GameObject.FindGameObjectsWithTag("Tanks");
-
-        foreach (GameObject tank in tanks)
-        {
-            if (tank == gameObject)
-            {
-                continue;
-            }
-
-            Vector2 direction = (Vector2)tank.transform.position - (Vector2)transform.position;
-
-            float distance = direction.magnitude;
-
-            // Check vision range
-            if (distance > visionRange)
-            {
-                continue;
-            }
-
-            // Check vision angle
-            float angle = Vector2.Angle(transform.up, direction);
-
-            if (angle > visionAngle / 2f)
-            {
-                continue;
-            }
-
-            // Check for walls blocking vision
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, distance, obstacleMask);
-
-            if (hit.collider != null)
-            {
-                continue;
-            }
-
-            // Keep the closest visible target
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                visibleTarget = tank.transform;
-            }
-        }
-    }
-
-    void DrawVision()
-    {
-        Vector3 origin = transform.position;
-
         lineRenderer.positionCount = rayCount + 2;
-
         lineRenderer.SetPosition(0, origin);
 
         float startAngle = -visionAngle / 2f;
@@ -88,16 +33,41 @@ public class Vision : MonoBehaviour
         {
             float angle = startAngle + angleStep * i;
 
-            Vector2 direction =
-                Quaternion.Euler(0, 0, angle) * transform.up;
+            Vector2 direction = Quaternion.Euler(0, 0, angle) * transform.up;
 
-            RaycastHit2D hit = Physics2D.Raycast(origin,direction,visionRangeobstacleMask);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(origin,direction,visionRange,visionMask);
+
+            RaycastHit2D nearestHit = new RaycastHit2D();
+            bool hitSomething = false;
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
+                {
+                    continue;
+                }
+
+                if (!hitSomething || hit.distance < nearestHit.distance)
+                {
+                    nearestHit = hit;
+                    hitSomething = true;
+                }
+            }
 
             Vector3 endpoint;
 
-            if (hit.collider != null)
+            if (hitSomething)
             {
-                endpoint = hit.point;
+                endpoint = nearestHit.point;
+
+                if (nearestHit.collider.CompareTag("Tanks"))
+                {
+                    if (nearestHit.distance < closestDistance)
+                    {
+                        closestDistance = nearestHit.distance;
+                        visibleTarget = nearestHit.collider.transform;
+                    }
+                }
             }
             else
             {
@@ -106,11 +76,7 @@ public class Vision : MonoBehaviour
 
             lineRenderer.SetPosition(i + 1, endpoint);
         }
-        lineRenderer.SetPosition(rayCount + 1, origin);
-    }
 
-    void LateUpdate()
-    {
-        DrawVision();
+        lineRenderer.SetPosition(rayCount + 1, origin);
     }
 }
