@@ -2,34 +2,59 @@ using UnityEngine;
 
 public class NormAgent : AgentMovement
 {
-    public float attackRange = 8f;
+    private Vector2 waypoint;
+    private Vector2 lastKnownPosition;
 
-    protected override void Think()
+    private bool hasWaypoint = false;
+    private bool searching = false;
+
+    protected override void AgentBehaviour()
     {
-        if (vision == null || vision.visibleTarget == null)
+        GameObject target = vision.visibleTarget;
+
+        if (health < 30)
         {
+            if (target != null)
+            {
+                Vector2 away = transform.position - target.transform.position;
+                MoveToward((Vector2)transform.position + away.normalized * vision.visionRange);
+            }
+            else
+            {
+                MoveToward(lastKnownPosition);
+            }
+
             return;
         }
 
-        Transform target = vision.visibleTarget;
-
-        Vector2 direction =
-            (Vector2)target.position - rb.position;
-
-        float angle = Vector2.SignedAngle(
-            transform.up, direction
-        );
-
-        AimAt(target.position);
-
-        if (direction.magnitude > attackRange)
+        if (target != null)
         {
-            Turn(angle);
+            lastKnownPosition = target.transform.position;
+
+            AimAt(target.transform.position);
+            Shoot();
+
+            MoveToward(target.transform.position);
+            return;
         }
-        else
+
+        if (searching)
         {
-            Turn(angle);
-            ShootAt(target.position);
+            MoveToward(lastKnownPosition);
+
+            if (Vector2.Distance(transform.position, lastKnownPosition) < 0.5f)
+            {
+                searching = false;
+            }
+
+            return;
         }
+
+        if (!hasWaypoint || Vector2.Distance(transform.position, waypoint) < 0.5f)
+        {
+            FindWaypoint();
+        }
+
+        MoveToward(waypoint);
     }
 }

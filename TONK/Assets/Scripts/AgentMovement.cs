@@ -22,10 +22,10 @@ public abstract class AgentMovement : MonoBehaviour, IDamageable
             fireTimer -= Time.deltaTime;
         }
 
-        Think();
+        AgentBehaviour();
     }
 
-    protected abstract void Think();
+    protected abstract void AgentBehaviour();
 
     protected void MoveForward(float amount)
     {
