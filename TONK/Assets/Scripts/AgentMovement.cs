@@ -2,20 +2,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class TankMovement : MonoBehaviour, IDamageable
+public class AgentMovement: MonoBehaviour, IDamageable
 {
     public int health = 100;
     public float moveSpeed = 5f;
     public float rotationSpeed = 180f;
-    public float firerate = 5f;
+    public float firerate;
+    public float tbs;
     public float bulletspeed = 1f;
 
     public Rigidbody2D rb;
     public GameObject spinny;
     public GameObject bulletfab;
+
     public Transform firingpoint;
     public BoxCollider2D hitbox;
-    private Camera mainCamera;
 
     private Vector2 moveInput;
     private Vector2 turnInput;
@@ -28,7 +29,11 @@ public class TankMovement : MonoBehaviour, IDamageable
         GameObject bullet = Instantiate(bulletfab, firingpoint.position, spinny.transform.rotation);
         Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
         brb.linearVelocity = direction.normalized * bulletspeed;
-        Debug.Log(direction);
+    }
+
+    void move()
+    {
+
     }
 
     public void OnHit(int damage)
@@ -43,27 +48,12 @@ public class TankMovement : MonoBehaviour, IDamageable
 
     void Start()
     {
-        mainCamera = Camera.main;
+
     }
 
     void Update()
     {
-        if (InputSystem.actions["Shoot"].WasPressedThisFrame())
-        {
-            shoot();
-        }
-        moveInput = InputSystem.actions["Move"].ReadValue<Vector2>();
-        turnInput = InputSystem.actions["Turn"].ReadValue<Vector2>();
-        rotateInput = mainCamera.ScreenToWorldPoint(InputSystem.actions["Look"].ReadValue<Vector2>());
-
-        direction = new Vector2(
-            rotateInput.x - transform.position.x,
-            rotateInput.y - transform.position.y
-        );
-
-        //firingpoint.LookAt(direction);
-
-
+        
     }
 
     void FixedUpdate()
