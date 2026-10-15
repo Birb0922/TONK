@@ -1,40 +1,74 @@
 using UnityEngine;
 
-public class AgentMovement: MonoBehaviour, IDamageable
+public abstract class AgentMovement : MonoBehaviour, IDamageable
 {
     public int health = 100;
     public float moveSpeed = 5f;
     public float rotationSpeed = 180f;
-    public float firerate;
-    public float tbs;
-    public float bulletspeed = 1f;
+    public float bulletspeed = 10f;
+    public float fireCooldown = 1f;
+    float fireTimer;
 
     public Rigidbody2D rb;
-    public GameObject spinny;
+    public Transform spinny;
     public GameObject bulletfab;
-
     public Transform firingpoint;
-    public BoxCollider2D hitbox;
+    public VisionSensor vision;
 
-    private Vector2 moveInput;
-    private Vector2 turnInput;
-    private Vector2 rotateInput;
-    private Vector2 direction;
-
-
-    void shoot()
+    protected virtual void Update()
     {
-        GameObject bullet = Instantiate(bulletfab, firingpoint.position, spinny.transform.rotation);
-        Rigidbody2D brb = bullet.GetComponent<Rigidbody2D>();
-        brb.linearVelocity = direction.normalized * bulletspeed;
+        if (fireTimer > 0)
+        {
+            fireTimer -= Time.deltaTime;
+        }
+
+        Think();
     }
 
-    void move()
-    {
+    protected abstract void Think();
 
+    protected void MoveForward(float amount)
+    {
+        Vector2 movement = (Vector2)transform.up * amount * moveSpeed;
+
+        rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
     }
 
-    public void OnHit(int damage)
+    protected void Turn(float angle)
+    {
+        float turn = Mathf.Clamp(angle, -rotationSpeed * Time.fixedDeltaTime, rotationSpeed * Time.fixedDeltaTime);
+
+        rb.MoveRotation(rb.rotation + turn);
+    }
+
+    protected void AimAt(Vector2 position)
+    {
+        Vector2 direction = position - rb.position;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        spinny.rotation = Quaternion.Euler(0, 0, angle - 90f);
+    }
+
+    protected void ShootAt(Vector2 position)
+    {
+        if (fireTimer > 0)
+        {
+            return;
+        }
+
+        Vector2 direction = position - (Vector2) firingpoint.position;
+
+        GameObject bullet = Instantiate(bulletfab, firingpoint.position, spinny.rotation);
+
+        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+
+        bulletRb.linearVelocity = direction.normalized * bulletspeed;
+
+        fireTimer = fireCooldown;
+    }
+
+    public virtual void OnHit(int damage)
     {
         health -= damage;
 
@@ -42,27 +76,5 @@ public class AgentMovement: MonoBehaviour, IDamageable
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
-    void FixedUpdate()
-    {
-        float rot = -turnInput.x * rotationSpeed * Time.fixedDeltaTime;
-        rb.MoveRotation(rb.rotation + rot);
-
-        Vector2 moveVector = transform.up * moveInput.y * moveSpeed;
-        rb.MovePosition(rb.position + moveVector * Time.fixedDeltaTime);
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        spinny.transform.rotation = Quaternion.Euler(0, 0, angle - 90f);
     }
 }
