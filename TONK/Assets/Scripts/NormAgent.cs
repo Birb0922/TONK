@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class NormAgent : AgentMovement
 {
-    private Vector2 waypoint;
     private Vector2 lastKnownPosition;
-
-    private bool hasWaypoint = false;
     private bool searching = false;
 
     protected override void AgentBehaviour()
     {
-        GameObject target = vision.visibleTarget;
+        Transform target = vision.visibleTarget;
 
         if (health < 30)
         {
@@ -32,7 +29,7 @@ public class NormAgent : AgentMovement
             lastKnownPosition = target.transform.position;
 
             AimAt(target.transform.position);
-            Shoot();
+            ShootAt(target.transform.position);
 
             MoveToward(target.transform.position);
             return;
