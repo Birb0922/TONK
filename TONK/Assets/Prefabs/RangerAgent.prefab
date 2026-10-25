@@ -102,13 +102,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5719784716138620058}
+  - component: {fileID: 1612000622277110458}
   - component: {fileID: 5424380530353920807}
   - component: {fileID: 571065322981733105}
   - component: {fileID: 5098739732977661017}
   - component: {fileID: 4316454186203763841}
-  - component: {fileID: 1612000622277110458}
   m_Layer: 0
-  m_Name: Ranger
+  m_Name: RangerAgent
   m_TagString: Tanks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,6 +131,34 @@ Transform:
   - {fileID: 7756611020515823677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612000622277110458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935033445162962698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab5296db21ad2fd4daa9c2b45ce197fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RangerAgent
+  health: 100
+  moveSpeed: 3
+  rotationSpeed: 180
+  bulletspeed: 10
+  fireCooldown: 1
+  visionRange: 10
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  waypoint: {x: 0, y: 0}
+  hasWaypoint: 0
+  rb: {fileID: 571065322981733105}
+  spinny: {fileID: 7756611020515823677}
+  bulletfab: {fileID: 6547913411148519154, guid: ae73aa733322b724e9016993b7f7370a, type: 3}
+  firingpoint: {fileID: 927839409939993983}
+  vision: {fileID: 5424380530353920807}
 --- !u!114 &5424380530353920807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +250,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 1.2}
+  m_Size: {x: 0.72341985, y: 1.0947015}
   m_EdgeRadius: 0
 --- !u!120 &4316454186203763841
 LineRenderer:
@@ -334,34 +362,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &1612000622277110458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935033445162962698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab5296db21ad2fd4daa9c2b45ce197fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RangerAgent
-  health: 100
-  moveSpeed: 5
-  rotationSpeed: 180
-  bulletspeed: 10
-  fireCooldown: 1
-  visionRange: 10
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
-  waypoint: {x: 0, y: 0}
-  hasWaypoint: 0
-  rb: {fileID: 571065322981733105}
-  spinny: {fileID: 7756611020515823677}
-  bulletfab: {fileID: 6547913411148519154, guid: ae73aa733322b724e9016993b7f7370a, type: 3}
-  firingpoint: {fileID: 927839409939993983}
-  vision: {fileID: 5424380530353920807}
 --- !u!1 &3250485181957836171
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +444,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5612369, g: 0.18396229, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

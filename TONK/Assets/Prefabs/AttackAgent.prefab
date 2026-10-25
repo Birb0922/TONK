@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   health: 100
-  moveSpeed: 5
+  moveSpeed: 3
   rotationSpeed: 180
   bulletspeed: 10
   fireCooldown: 1
@@ -253,7 +253,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8, y: 1.2}
+  m_Size: {x: 0.72341985, y: 1.0947015}
   m_EdgeRadius: 0
 --- !u!120 &4316454186203763841
 LineRenderer:
@@ -447,7 +447,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.19339621, b: 0.19339621, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
