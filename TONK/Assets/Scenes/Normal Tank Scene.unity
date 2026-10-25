@@ -420,11 +420,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7028973705140597962, guid: 57b7ea1dd7a9e8545aa3f116215c07d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.61
+      value: 6.24
       objectReference: {fileID: 0}
     - target: {fileID: 7028973705140597962, guid: 57b7ea1dd7a9e8545aa3f116215c07d1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.95
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 7028973705140597962, guid: 57b7ea1dd7a9e8545aa3f116215c07d1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1072,7 +1072,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1847,6 +1847,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoutePatrolAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1770178059}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1766720551}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[2]'
+      value: 
+      objectReference: {fileID: 154274427}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1935249369}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[4]'
+      value: 
+      objectReference: {fileID: 22029207}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1581763450}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[6]'
+      value: 
+      objectReference: {fileID: 1719898692}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[7]'
+      value: 
+      objectReference: {fileID: 1686294324}
+    - target: {fileID: 3541635075531899203, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
+      propertyPath: 'patrolPoints.Array.data[8]'
+      value: 
+      objectReference: {fileID: 2031405965}
     - target: {fileID: 5691081790809979965, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
       propertyPath: m_Color.b
       value: 0.9245283
@@ -1861,11 +1901,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5719784716138620058, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.8
+      value: 2.6
       objectReference: {fileID: 0}
     - target: {fileID: 5719784716138620058, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2.92
       objectReference: {fileID: 0}
     - target: {fileID: 5719784716138620058, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1902,87 +1942,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1935033445162962698, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1030924605}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
---- !u!1 &1030924604 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1935033445162962698, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
-  m_PrefabInstance: {fileID: 1030924603}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1030924605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030924604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0cb22e0190a22c4b9568ec4c70c1125, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoutePatrolAgent
-  health: 100
-  moveSpeed: 5
-  rotationSpeed: 180
-  bulletspeed: 10
-  fireCooldown: 1
-  visionRange: 10
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
-  waypoint: {x: 0, y: 0}
-  hasWaypoint: 0
-  rb: {fileID: 1030924608}
-  spinny: {fileID: 1030924607}
-  bulletfab: {fileID: 6547913411148519154, guid: ae73aa733322b724e9016993b7f7370a, type: 3}
-  firingpoint: {fileID: 1030924606}
-  vision: {fileID: 1030924609}
-  patrolPoints:
-  - {fileID: 1770178059}
-  - {fileID: 1766720551}
-  - {fileID: 154274427}
-  - {fileID: 1935249369}
-  - {fileID: 22029207}
-  - {fileID: 1581763450}
-  - {fileID: 1719898692}
-  - {fileID: 1686294324}
-  - {fileID: 2031405965}
-  loopRoute: 1
-  arrivalDistance: 0.5
-  pauseDuration: 2
-  investigationPause: 4
-  investigationArrivalDistance: 0.75
-  shootAtVisibleEnemies: 1
-  currentState: 0
---- !u!4 &1030924606 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 927839409939993983, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
-  m_PrefabInstance: {fileID: 1030924603}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1030924607 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7756611020515823677, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
-  m_PrefabInstance: {fileID: 1030924603}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1030924608 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 571065322981733105, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
-  m_PrefabInstance: {fileID: 1030924603}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1030924609 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5424380530353920807, guid: f655bb15d98911940a5a88fce31e7453, type: 3}
-  m_PrefabInstance: {fileID: 1030924603}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030924604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa0845d9b62b3840a6f6325f59800f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Vision
 --- !u!1001 &1044743144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3407,6 +3368,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 5045634044067428551, guid: 998485d88dd9a2f44a1439e53b670bbc, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7045525528180835982, guid: 998485d88dd9a2f44a1439e53b670bbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.65
@@ -3507,6 +3472,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7045525528180835982, guid: 998485d88dd9a2f44a1439e53b670bbc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8604982691841639822, guid: 998485d88dd9a2f44a1439e53b670bbc, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

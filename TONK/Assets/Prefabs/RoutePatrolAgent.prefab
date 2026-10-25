@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoutePatrolAgent
   health: 100
-  moveSpeed: 5
+  moveSpeed: 3
   rotationSpeed: 180
   bulletspeed: 10
   fireCooldown: 1
