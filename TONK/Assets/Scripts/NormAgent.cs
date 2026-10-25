@@ -54,7 +54,7 @@ public class NormAgent : AgentMovement
             ShootAt(target.position);
 
             if (!hasAttackPosition ||
-                Vector2.Distance(attackTargetPosition, target.position) > 2f)
+            Vector2.Distance(attackTargetPosition, target.position) > 4f)
             {
                 ChooseAttackPosition(target.position);
                 attackTargetPosition = target.position;
@@ -133,14 +133,13 @@ public class NormAgent : AgentMovement
 
     private void ChooseAttackPosition(Vector2 targetPosition)
     {
-        float angle = Random.Range(0f, 360f);
-        float radians = angle * Mathf.Deg2Rad;
+        Vector2 awayFromTarget = (rb.position - targetPosition).normalized;
 
-        Vector2 direction = new Vector2(
-            Mathf.Cos(radians),
-            Mathf.Sin(radians));
+        float angleOffset = Random.Range(-35f, 35f);
+        Vector2 direction = Quaternion.Euler(0f, 0f, angleOffset) * awayFromTarget;
 
         attackPosition = targetPosition + direction * attackDistance;
         hasAttackPosition = true;
     }
+
 }
