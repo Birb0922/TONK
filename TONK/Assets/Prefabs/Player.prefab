@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5500710567930182076}
   - component: {fileID: 4599672981122048874}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 329149911876201987}
   - component: {fileID: 5575940332998434938}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 2569739352834383832}
   - component: {fileID: 1219336907063201791}
   - component: {fileID: 3506342748275849900}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Player
   m_TagString: Tanks
   m_Icon: {fileID: 0}
@@ -261,7 +261,10 @@ MonoBehaviour:
   visionRange: 5
   visionAngle: 65
   rayCount: 60
-  visionMask:
+  tankMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
     serializedVersion: 2
     m_Bits: 64
   lineRenderer: {fileID: 3506342748275849900}
@@ -458,7 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 867989223801140161}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: FiringPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8510866075525997523}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: RotationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

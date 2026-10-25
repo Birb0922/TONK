@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7800122994631527940}
   - component: {fileID: 5052471572127160690}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7389095803590869301}
   - component: {fileID: 5051544816250145810}
   - component: {fileID: 3591713393248963576}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: NormAgent
   m_TagString: Tanks
   m_Icon: {fileID: 0}
@@ -174,7 +174,10 @@ MonoBehaviour:
   visionRange: 5
   visionAngle: 65
   rayCount: 60
-  visionMask:
+  tankMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
     serializedVersion: 2
     m_Bits: 64
   lineRenderer: {fileID: 3591713393248963576}
@@ -371,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1044683815018845009}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FiringPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4379423489109127971}
   - component: {fileID: 7309271091954449363}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +497,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7694767599138838453}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RotationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

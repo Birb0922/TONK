@@ -84,7 +84,7 @@ public abstract class AgentMovement : MonoBehaviour, IDamageable
 
         rb.MoveRotation(rb.rotation + turn);
 
-        if (Mathf.Abs(angle) > 20f)
+        if (Mathf.Abs(angle) > 30f)
         {
             return;
         }

@@ -6,7 +6,9 @@ public class VisionSensor : MonoBehaviour
     public float visionAngle = 90f;
     public int rayCount = 60;
 
-    public LayerMask visionMask;
+    public LayerMask tankMask;
+    public LayerMask obstacleMask;
+
     public LineRenderer lineRenderer;
 
     public Transform visibleTarget;
@@ -33,45 +35,82 @@ public class VisionSensor : MonoBehaviour
         {
             float angle = startAngle + angleStep * i;
 
-            Vector2 direction = Quaternion.Euler(0, 0, angle) * transform.up;
+            Vector2 direction =
+                Quaternion.Euler(0, 0, angle) * transform.up;
 
-            RaycastHit2D[] hits = Physics2D.RaycastAll(origin,direction,visionRange,visionMask);
+            RaycastHit2D[] tankHits = Physics2D.RaycastAll(
+                origin,
+                direction,
+                visionRange,
+                tankMask
+            );
 
-            RaycastHit2D nearestHit = new RaycastHit2D();
-            bool hitSomething = false;
+            RaycastHit2D[] obstacleHits = Physics2D.RaycastAll(
+                origin,
+                direction,
+                visionRange,
+                obstacleMask
+            );
 
-            foreach (RaycastHit2D hit in hits)
+            RaycastHit2D nearestTank = new RaycastHit2D();
+            bool foundTank = false;
+
+            foreach (RaycastHit2D hit in tankHits)
             {
-                if (hit.collider.transform == transform || hit.collider.transform.IsChildOf(transform))
+                if (hit.collider.transform == transform ||
+                    hit.collider.transform.IsChildOf(transform.root))
                 {
                     continue;
                 }
 
-                if (!hitSomething || hit.distance < nearestHit.distance)
+                if (!foundTank || hit.distance < nearestTank.distance)
                 {
-                    nearestHit = hit;
-                    hitSomething = true;
+                    nearestTank = hit;
+                    foundTank = true;
                 }
             }
 
-            Vector3 endpoint;
+            RaycastHit2D nearestObstacle = new RaycastHit2D();
+            bool foundObstacle = false;
 
-            if (hitSomething)
+            foreach (RaycastHit2D hit in obstacleHits)
             {
-                endpoint = nearestHit.point;
-
-                if (nearestHit.collider.CompareTag("Tanks"))
+                if (hit.collider.transform == transform ||
+                    hit.collider.transform.IsChildOf(transform.root))
                 {
-                    if (nearestHit.distance < closestDistance)
-                    {
-                        closestDistance = nearestHit.distance;
-                        visibleTarget = nearestHit.collider.transform;
-                    }
+                    continue;
+                }
+
+                if (!foundObstacle ||
+                    hit.distance < nearestObstacle.distance)
+                {
+                    nearestObstacle = hit;
+                    foundObstacle = true;
                 }
             }
-            else
+
+            Vector3 endpoint =
+                origin + (Vector3)(direction * visionRange);
+
+            bool tankVisible = foundTank &&
+                (!foundObstacle ||
+                 nearestTank.distance < nearestObstacle.distance);
+
+            if (foundObstacle &&
+                (!tankVisible ||
+                 nearestObstacle.distance < nearestTank.distance))
             {
-                endpoint = origin + (Vector3)(direction * visionRange);
+                endpoint = nearestObstacle.point;
+            }
+            else if (tankVisible)
+            {
+                endpoint = nearestTank.point;
+
+                if (nearestTank.distance < closestDistance)
+                {
+                    closestDistance = nearestTank.distance;
+                    visibleTarget = nearestTank.collider.transform;
+                }
             }
 
             lineRenderer.SetPosition(i + 1, endpoint);
