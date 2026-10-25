@@ -58,7 +58,7 @@ MonoBehaviour:
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   waypoint: {x: 0, y: 0}
   hasWaypoint: 0
   rb: {fileID: 5594101536449554347}
@@ -85,7 +85,7 @@ MonoBehaviour:
   rayCount: 60
   tankMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   obstacleMask:
     serializedVersion: 2
     m_Bits: 64

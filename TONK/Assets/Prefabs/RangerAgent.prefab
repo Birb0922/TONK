@@ -151,7 +151,7 @@ MonoBehaviour:
   visionRange: 10
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   waypoint: {x: 0, y: 0}
   hasWaypoint: 0
   rb: {fileID: 571065322981733105}

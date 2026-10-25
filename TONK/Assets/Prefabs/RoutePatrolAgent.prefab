@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3819817170751107551}
   - component: {fileID: 7202632264354810775}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,12 +102,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5719784716138620058}
+  - component: {fileID: 3541635075531899203}
   - component: {fileID: 5424380530353920807}
   - component: {fileID: 571065322981733105}
   - component: {fileID: 5098739732977661017}
   - component: {fileID: 4316454186203763841}
-  - component: {fileID: 3541635075531899203}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RoutePatrolAgent
   m_TagString: Tanks
   m_Icon: {fileID: 0}
@@ -131,6 +131,51 @@ Transform:
   - {fileID: 7756611020515823677}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3541635075531899203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935033445162962698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cb22e0190a22c4b9568ec4c70c1125, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoutePatrolAgent
+  health: 100
+  moveSpeed: 5
+  rotationSpeed: 180
+  bulletspeed: 10
+  fireCooldown: 1
+  visionRange: 10
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 64
+  waypoint: {x: 0, y: 0}
+  hasWaypoint: 0
+  rb: {fileID: 571065322981733105}
+  spinny: {fileID: 7756611020515823677}
+  bulletfab: {fileID: 6547913411148519154, guid: ae73aa733322b724e9016993b7f7370a, type: 3}
+  firingpoint: {fileID: 927839409939993983}
+  vision: {fileID: 5424380530353920807}
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  loopRoute: 1
+  arrivalDistance: 0.5
+  pauseDuration: 2
+  investigationPause: 4
+  investigationArrivalDistance: 0.75
+  shootAtVisibleEnemies: 1
+  currentState: 0
 --- !u!114 &5424380530353920807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +191,10 @@ MonoBehaviour:
   visionRange: 5
   visionAngle: 65
   rayCount: 60
-  visionMask:
+  tankMask:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleMask:
     serializedVersion: 2
     m_Bits: 64
   lineRenderer: {fileID: 4316454186203763841}
@@ -334,51 +382,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &3541635075531899203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935033445162962698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0cb22e0190a22c4b9568ec4c70c1125, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoutePatrolAgent
-  health: 100
-  moveSpeed: 5
-  rotationSpeed: 180
-  bulletspeed: 10
-  fireCooldown: 1
-  visionRange: 10
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
-  waypoint: {x: 0, y: 0}
-  hasWaypoint: 0
-  rb: {fileID: 571065322981733105}
-  spinny: {fileID: 7756611020515823677}
-  bulletfab: {fileID: 6547913411148519154, guid: ae73aa733322b724e9016993b7f7370a, type: 3}
-  firingpoint: {fileID: 927839409939993983}
-  vision: {fileID: 5424380530353920807}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  loopRoute: 1
-  arrivalDistance: 0.5
-  pauseDuration: 2
-  investigationPause: 4
-  investigationArrivalDistance: 0.75
-  shootAtVisibleEnemies: 1
-  currentState: 0
 --- !u!1 &3250485181957836171
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,7 +392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1774691365925679020}
   - component: {fileID: 5691081790809979965}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 927839409939993983}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: FiringPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -511,7 +514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7756611020515823677}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RotationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
