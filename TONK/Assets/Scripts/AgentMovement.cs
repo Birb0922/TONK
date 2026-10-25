@@ -18,6 +18,23 @@ public abstract class AgentMovement : MonoBehaviour, IDamageable
     public GameObject bulletfab;
     public Transform firingpoint;
     public VisionSensor vision;
+    protected Collider2D bodyCollider;
+    private ContactFilter2D obstacleFilter;
+    private RaycastHit2D[] obstacleHits = new RaycastHit2D[5];
+
+    protected virtual void Awake()
+    {
+        if (rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+
+        bodyCollider = GetComponent<Collider2D>();
+
+        obstacleFilter = new ContactFilter2D();
+        obstacleFilter.SetLayerMask(obstacleMask);
+        obstacleFilter.useTriggers = false;
+    }
 
     protected virtual void Update()
     {
@@ -49,14 +66,49 @@ public abstract class AgentMovement : MonoBehaviour, IDamageable
     {
         Vector2 direction = target - rb.position;
 
-        float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        if (direction.sqrMagnitude < 0.01f)
+        {
+            return;
+        }
+
+        float targetAngle = Mathf.Atan2(direction.y, direction.x)
+            * Mathf.Rad2Deg - 90f;
 
         float angle = Mathf.DeltaAngle(rb.rotation, targetAngle);
-        float turn = Mathf.Clamp(angle, -rotationSpeed * Time.fixedDeltaTime, rotationSpeed * Time.fixedDeltaTime);
+
+        float turn = Mathf.Clamp(
+            angle,
+            -rotationSpeed * Time.fixedDeltaTime,
+            rotationSpeed * Time.fixedDeltaTime
+        );
 
         rb.MoveRotation(rb.rotation + turn);
 
-        Vector2 movement = (Vector2)transform.up * moveSpeed * Time.fixedDeltaTime;
+        if (Mathf.Abs(angle) > 20f)
+        {
+            return;
+        }
+
+        Vector2 movement = (Vector2)transform.up
+            * moveSpeed * Time.fixedDeltaTime;
+
+        float distance = movement.magnitude;
+
+        if (bodyCollider != null)
+        {
+            int hitCount = bodyCollider.Cast(
+                movement.normalized,
+                obstacleFilter,
+                obstacleHits,
+                distance + 0.05f
+            );
+
+            if (hitCount > 0)
+            {
+                return;
+            }
+        }
+
         rb.MovePosition(rb.position + movement);
     }
 
