@@ -99,7 +99,8 @@ public class DefAgent : AgentMovement
 
             if (Vector2.Distance(transform.position, target.transform.position) < 3)
             {
-                MoveToward(transform.position);
+                rb.linearVelocity = Vector2.zero;
+                return;
             }
 
             MoveToward(target.transform.position);
