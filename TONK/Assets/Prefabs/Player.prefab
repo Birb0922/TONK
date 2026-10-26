@@ -238,8 +238,8 @@ MonoBehaviour:
   health: 100
   moveSpeed: 3
   rotationSpeed: 160
-  firerate: 5
-  tbs: 0
+  firerate: 0
+  tbs: 1
   bulletspeed: 6
   rb: {fileID: 2569739352834383832}
   spinny: {fileID: 4195964448155645277}

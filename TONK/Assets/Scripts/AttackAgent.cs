@@ -2,53 +2,122 @@ using UnityEngine;
 
 public class AttackAgent : AgentMovement
 {
-    public Transform enemyBase;
-    public float shootRange = 5f;
-    public float centerLaneX = 0f;
+    private Vector2 lastKnownPosition;
+    private bool searching = false;
+
+    private Vector2 previousPosition;
+    private float stuckTimer = 0f;
+    private float checkTimer = 0f;
+    private bool isStuck = false;
+
+    private Vector2 attackPosition;
+    private Vector2 attackTargetPosition;
+    private bool hasAttackPosition = false;
+
+    private float checkInterval = 1f;
+    private float stuckThreshold = 0.15f;
+    private float attackDistance = 10f;
 
     protected override void AgentBehaviour()
     {
         Transform target = vision.visibleTarget;
 
+        CheckIfStuck();
+
         if (target != null)
         {
-            Attack(target);
+            lastKnownPosition = target.position;
+
+            AimAt(target.position);
+            ShootAt(target.position);
+
+            if (!hasAttackPosition ||
+            Vector2.Distance(attackTargetPosition, target.position) > 4f)
+            {
+                ChooseAttackPosition(target.position);
+                attackTargetPosition = target.position;
+            }
+
+            if (isStuck)
+            {
+                ChooseAttackPosition(target.position);
+                attackTargetPosition = target.position;
+                isStuck = false;
+            }
+
+            MoveToward(attackPosition);
             return;
         }
 
-        Advance();
-    }
+        hasAttackPosition = false;
 
-    void Advance()
-    {
-        Vector2 destination;
-
-        if (enemyBase != null)
+        if (isStuck)
         {
-            destination = new Vector2(centerLaneX, enemyBase.position.y);
-        }
-        else
-        {
-            destination = new Vector2(centerLaneX, rb.position.y + 10f);
+            hasWaypoint = false;
+            FindWaypoint();
+            isStuck = false;
         }
 
-        MoveToward(destination);
-    }
-
-    void Attack(Transform target)
-    {
-        Vector2 targetPosition = target.position;
-
-        AimAt(targetPosition);
-
-        float distance = Vector2.Distance(rb.position, targetPosition);
-
-        if (distance <= shootRange)
+        if (searching)
         {
-            ShootAt(targetPosition);
+            MoveToward(lastKnownPosition);
+
+            if (Vector2.Distance(transform.position,
+                lastKnownPosition) < 0.5f)
+            {
+                searching = false;
+            }
+
             return;
         }
 
-        MoveToward(targetPosition);
+        if (!hasWaypoint ||
+            Vector2.Distance(transform.position, waypoint) < 0.5f)
+        {
+            FindWaypoint();
+        }
+
+        MoveToward(waypoint);
     }
+
+    private void CheckIfStuck()
+    {
+        checkTimer += Time.deltaTime;
+
+        if (checkTimer >= checkInterval)
+        {
+            float distanceMoved = Vector2.Distance(
+                transform.position, previousPosition);
+
+            if (distanceMoved < stuckThreshold)
+            {
+                stuckTimer += checkTimer;
+            }
+            else
+            {
+                stuckTimer = 0f;
+            }
+
+            if (stuckTimer >= 2f)
+            {
+                isStuck = true;
+                stuckTimer = 0f;
+            }
+
+            previousPosition = transform.position;
+            checkTimer = 0f;
+        }
+    }
+
+    private void ChooseAttackPosition(Vector2 targetPosition)
+    {
+        Vector2 awayFromTarget = (rb.position - targetPosition).normalized;
+
+        float angleOffset = Random.Range(-35f, 35f);
+        Vector2 direction = Quaternion.Euler(0f, 0f, angleOffset) * awayFromTarget;
+
+        attackPosition = targetPosition + direction * attackDistance;
+        hasAttackPosition = true;
+    }
+
 }
